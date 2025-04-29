@@ -18,3 +18,16 @@ locations = {
     "Starling City Port": (1, 1),
     "CNRI law Office": (3, 7)     
 }
+
+#Now here's the deal we loop through our points in starling city and we see which one fits best. 
+#Bacically the closer the distance from a suspectted base to a crime scene matches the arrival time... the better the guess. 
+
+from math import sqrt
+
+def distande(point1, point2):
+    pass 
+
+def find_best_base(locations, times):
+    pass 
+
+#I gotta think about it a bit. 
