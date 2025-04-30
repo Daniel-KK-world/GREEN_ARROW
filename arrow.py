@@ -55,4 +55,4 @@ best_coords, score = find_best_base(locations, crime_scenes)
 verdant_location = locations["Verdant (Arrowcave)"]
 print(f" Calculated best base: {best_coords} (Error score: {score})")
 print(f" Actual Arrowcave location: {verdant_location}")
-print(" Algorithm correct?", best_coords == verdant_location)
+print(" Algorithm correct?: ", best_coords == verdant_location)
