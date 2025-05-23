@@ -1,0 +1,214 @@
+[
+    {
+        "label": "sqrt",
+        "importPath": "math",
+        "description": "math",
+        "isExtraImport": true,
+        "detail": "math",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "FuncAnimation",
+        "importPath": "matplotlib.animation",
+        "description": "matplotlib.animation",
+        "isExtraImport": true,
+        "detail": "matplotlib.animation",
+        "documentation": {}
+    },
+    {
+        "label": "LinearSegmentedColormap",
+        "importPath": "matplotlib.colors",
+        "description": "matplotlib.colors",
+        "isExtraImport": true,
+        "detail": "matplotlib.colors",
+        "documentation": {}
+    },
+    {
+        "label": "Button",
+        "importPath": "matplotlib.widgets",
+        "description": "matplotlib.widgets",
+        "isExtraImport": true,
+        "detail": "matplotlib.widgets",
+        "documentation": {}
+    },
+    {
+        "label": "distance",
+        "kind": 2,
+        "importPath": "arrow",
+        "description": "arrow",
+        "peekOfCode": "def distance(point1, point2):\n    \"\"\"Euclidean distance between two points.\"\"\"\n    return sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)\ndef find_best_base(locations, crime_scenes):\n    \"\"\"Find the (x,y) point that minimizes error between distance & arrival time.\"\"\"\n    best_location = None\n    best_score = float('inf')\n    # Test every possible grid point (0-9 in x and y)\n    for x in range(10):\n        for y in range(10):",
+        "detail": "arrow",
+        "documentation": {}
+    },
+    {
+        "label": "find_best_base",
+        "kind": 2,
+        "importPath": "arrow",
+        "description": "arrow",
+        "peekOfCode": "def find_best_base(locations, crime_scenes):\n    \"\"\"Find the (x,y) point that minimizes error between distance & arrival time.\"\"\"\n    best_location = None\n    best_score = float('inf')\n    # Test every possible grid point (0-9 in x and y)\n    for x in range(10):\n        for y in range(10):\n            total_error = 0\n            # Compare against all crime scenes\n            for scene_name, time in crime_scenes.items():",
+        "detail": "arrow",
+        "documentation": {}
+    },
+    {
+        "label": "crime_scenes",
+        "kind": 5,
+        "importPath": "arrow",
+        "description": "arrow",
+        "peekOfCode": "crime_scenes = {\n    \"The Glades\": 4.47,      \n    \"Starling City Bank\": 2.24, \n    \"Queen Consolidated\": 1.0,  \n    \"Starling General Hospital\": 5.0, \n    \"Starling City Port\": 4.24, \n    \"CNRI Law Office\": 2.24    \n}\nlocations = {\n    \"The Glades\": (2, 8),",
+        "detail": "arrow",
+        "documentation": {}
+    },
+    {
+        "label": "locations",
+        "kind": 5,
+        "importPath": "arrow",
+        "description": "arrow",
+        "peekOfCode": "locations = {\n    \"The Glades\": (2, 8),\n    \"Starling City Bank\": (6, 5),\n    \"Queen Consolidated\": (5, 4),  # Very close to Verdant (4,4)\n    \"Starling General Hospital\": (8, 7),\n    \"Starling City Port\": (1, 1),\n    \"CNRI Law Office\": (3, 5),\n    \"Verdant (Arrowcave)\": (4, 4)  # The REAL BASE(The Night Club))\n}\ndef distance(point1, point2):",
+        "detail": "arrow",
+        "documentation": {}
+    },
+    {
+        "label": "verdant_location",
+        "kind": 5,
+        "importPath": "arrow",
+        "description": "arrow",
+        "peekOfCode": "verdant_location = locations[\"Verdant (Arrowcave)\"]\nprint(f\" Calculated best base: {best_coords} (Error score: {score})\")\nprint(f\" Actual Arrowcave location: {verdant_location}\")\nprint(\" Algorithm correct?: \", best_coords == verdant_location)",
+        "detail": "arrow",
+        "documentation": {}
+    },
+    {
+        "label": "update_heatmap",
+        "kind": 2,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "def update_heatmap():\n    \"\"\"Update the error heatmap (darker = worse fit).\"\"\"\n    for i in range(len(x_grid)):\n        for j in range(len(y_grid)):\n            total_error = 0\n            for scene, time in crime_scenes.items():\n                dist = np.linalg.norm(np.array(locations[scene]) - np.array([x_grid[i,j], y_grid[i,j]]))\n                total_error += abs(dist - time)\n            error_grid[i,j] = total_error\n    return ax.imshow(error_grid, extent=(0,10,0,10), origin='lower', ",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "update",
+        "kind": 2,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "def update(frame):\n    global best_xy, best_error\n    x, y = frame // 10, frame % 10\n    # Calculate error for this (x,y)\n    total_error = 0\n    for scene, time in crime_scenes.items():\n        dist = np.linalg.norm(np.array(locations[scene]) - np.array([x, y]))\n        total_error += abs(dist - time)\n    # Update best guess\n    if total_error < best_error:",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "start",
+        "kind": 2,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "def start(event):\n    anim = FuncAnimation(fig, update, frames=100, interval=100, blit=True)\n    plt.draw()\nbutton.on_clicked(start)\n# Legend and final touches\nax.legend(loc='upper right', facecolor='#0d1117')\nplt.tight_layout()\nplt.show()",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "locations",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "locations = {\n    \"The Glades\": (2, 8),\n    \"Starling City Bank\": (6, 5),\n    \"Queen Consolidated\": (5, 4),\n    \"Starling General Hospital\": (8, 7),\n    \"Starling City Port\": (1, 1),\n    \"CNRI Law Office\": (3, 5),\n    \"Verdant (Arrowcave)\": (4, 4)\n}\ncrime_scenes = {",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "crime_scenes",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "crime_scenes = {\n    \"The Glades\": 4.47,      \n    \"Starling City Bank\": 2.24, \n    \"Queen Consolidated\": 1.0,  \n    \"Starling General Hospital\": 5.0, \n    \"Starling City Port\": 4.24, \n    \"CNRI Law Office\": 2.24    \n}\n# ==== PLOT SETUP ====\nax.set_xlim(0, 10)",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "best_xy",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "best_xy = (0, 0)\nbest_error = float('inf')\n# Heatmap background (error visualization)\nx_grid, y_grid = np.meshgrid(np.linspace(0, 10, 50), np.linspace(0, 10, 50))\nerror_grid = np.zeros_like(x_grid)\ndef update_heatmap():\n    \"\"\"Update the error heatmap (darker = worse fit).\"\"\"\n    for i in range(len(x_grid)):\n        for j in range(len(y_grid)):\n            total_error = 0",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "best_error",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "best_error = float('inf')\n# Heatmap background (error visualization)\nx_grid, y_grid = np.meshgrid(np.linspace(0, 10, 50), np.linspace(0, 10, 50))\nerror_grid = np.zeros_like(x_grid)\ndef update_heatmap():\n    \"\"\"Update the error heatmap (darker = worse fit).\"\"\"\n    for i in range(len(x_grid)):\n        for j in range(len(y_grid)):\n            total_error = 0\n            for scene, time in crime_scenes.items():",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "error_grid",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "error_grid = np.zeros_like(x_grid)\ndef update_heatmap():\n    \"\"\"Update the error heatmap (darker = worse fit).\"\"\"\n    for i in range(len(x_grid)):\n        for j in range(len(y_grid)):\n            total_error = 0\n            for scene, time in crime_scenes.items():\n                dist = np.linalg.norm(np.array(locations[scene]) - np.array([x_grid[i,j], y_grid[i,j]]))\n                total_error += abs(dist - time)\n            error_grid[i,j] = total_error",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "heatmap",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "heatmap = update_heatmap()\n# Animation function\ndef update(frame):\n    global best_xy, best_error\n    x, y = frame // 10, frame % 10\n    # Calculate error for this (x,y)\n    total_error = 0\n    for scene, time in crime_scenes.items():\n        dist = np.linalg.norm(np.array(locations[scene]) - np.array([x, y]))\n        total_error += abs(dist - time)",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "current_point",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "current_point = ax.scatter([], [], color='#f78166', s=100, label='Current Test', zorder=4)\nbest_point = ax.scatter([], [], color='#3fb950', s=300, marker='*', label='Best Guess', zorder=5)\n# ==== BUTTON ====\nbutton_ax = plt.axes([0.4, 0.05, 0.2, 0.075])\nbutton = Button(button_ax, 'START SEARCH', color='#238636', hovercolor='#2ea043')\nbutton.label.set_color('white')\ndef start(event):\n    anim = FuncAnimation(fig, update, frames=100, interval=100, blit=True)\n    plt.draw()\nbutton.on_clicked(start)",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "best_point",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "best_point = ax.scatter([], [], color='#3fb950', s=300, marker='*', label='Best Guess', zorder=5)\n# ==== BUTTON ====\nbutton_ax = plt.axes([0.4, 0.05, 0.2, 0.075])\nbutton = Button(button_ax, 'START SEARCH', color='#238636', hovercolor='#2ea043')\nbutton.label.set_color('white')\ndef start(event):\n    anim = FuncAnimation(fig, update, frames=100, interval=100, blit=True)\n    plt.draw()\nbutton.on_clicked(start)\n# Legend and final touches",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "button_ax",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "button_ax = plt.axes([0.4, 0.05, 0.2, 0.075])\nbutton = Button(button_ax, 'START SEARCH', color='#238636', hovercolor='#2ea043')\nbutton.label.set_color('white')\ndef start(event):\n    anim = FuncAnimation(fig, update, frames=100, interval=100, blit=True)\n    plt.draw()\nbutton.on_clicked(start)\n# Legend and final touches\nax.legend(loc='upper right', facecolor='#0d1117')\nplt.tight_layout()",
+        "detail": "visualize",
+        "documentation": {}
+    },
+    {
+        "label": "button",
+        "kind": 5,
+        "importPath": "visualize",
+        "description": "visualize",
+        "peekOfCode": "button = Button(button_ax, 'START SEARCH', color='#238636', hovercolor='#2ea043')\nbutton.label.set_color('white')\ndef start(event):\n    anim = FuncAnimation(fig, update, frames=100, interval=100, blit=True)\n    plt.draw()\nbutton.on_clicked(start)\n# Legend and final touches\nax.legend(loc='upper right', facecolor='#0d1117')\nplt.tight_layout()\nplt.show()",
+        "detail": "visualize",
+        "documentation": {}
+    }
+]
